@@ -3,7 +3,6 @@ package config
 import (
 	"database/sql"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"os"
 
@@ -18,18 +17,15 @@ type DBConfig struct {
 }
 
 func configOpen() DBConfig {
-	var config DBConfig
-	data, err := os.Open("F:/files/golang/web/admin/db.json")
+	var config DBConfig                                       //config struct
+	data, err := os.Open("F:/files/golang/web/admin/db.json") //jsonFile memory
 	if err != nil {
 		panic(err.Error())
 	}
 	defer data.Close()
 
-	byteVal, _ := ioutil.ReadAll(data)
+	byteVal, _ := ioutil.ReadAll(data) //byte jsonFile
 	json.Unmarshal(byteVal, &config)
-
-	fmt.Println(string(config.Database))
-	fmt.Print(config)
 
 	return config
 }
@@ -37,7 +33,6 @@ func configOpen() DBConfig {
 func ConnDb() (db *sql.DB) {
 	config := configOpen()
 
-	fmt.Println(config.Driver, config.User+":"+config.Password+"@/"+config.Database)
 	db, err := sql.Open(config.Driver, config.User+":"+config.Password+"@/"+config.Database)
 
 	if err != nil {
