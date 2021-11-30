@@ -1,6 +1,7 @@
 package account
 
 import (
+	"fmt"
 	"net/http"
 	createConn "web/config"
 )
@@ -15,6 +16,7 @@ func Login(res http.ResponseWriter, req *http.Request) bool {
 	query, err := db.Query("SELECT token FROM account")
 
 	if err != nil {
+		fmt.Printf("err(login db connect part): %v\n", err)
 		panic(err.Error())
 	}
 
