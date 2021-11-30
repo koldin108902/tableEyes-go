@@ -1,37 +1,14 @@
 package router
 
 import (
-	"database/sql"
 	"fmt"
 	"net/http"
-
-	_ "github.com/go-sql-driver/mysql"
+	createConn "web/config"
+	_struct "web/struct"
 )
 
-type row struct {
-	id           int
-	ownerId      int
-	name         string
-	description  string
-	category     string
-	waitingState bool
-	detail       string
-	isOpen       bool
-	nowPersonnel int
-}
-
-func connDb() (db *sql.DB) {
-	db, err := sql.Open("mysql", "root:#koldin13579@/tableEyes")
-
-	if err != nil {
-		panic(err.Error())
-	}
-
-	return db
-}
-
 func GetStore(res http.ResponseWriter, req *http.Request) {
-	db := connDb()
+	db := createConn.ConnDb()
 
 	query, err := db.Prepare("SELECT * FROM store")
 
@@ -40,19 +17,19 @@ func GetStore(res http.ResponseWriter, req *http.Request) {
 	}
 
 	rows, err := query.Query()
-	dataes := []row{}
+	dataes := []_struct.Row{}
 
 	if err != nil {
 		panic(err.Error())
 	}
 
 	for rows.Next() {
-		var row row
+		row := _struct.Row{}
 
 		err := rows.Scan(
-			&row.id, &row.ownerId, &row.name,
-			&row.description, &row.category, &row.waitingState,
-			&row.detail, &row.isOpen, &row.nowPersonnel)
+			&row.Id, &row.OwnerId, &row.Name,
+			&row.Description, &row.Category, &row.WaitingState,
+			&row.Detail, &row.IsOpen, &row.NowPersonnel)
 
 		if err != nil {
 			panic(err.Error())
