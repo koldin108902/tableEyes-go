@@ -1,0 +1,6 @@
+{
+    "driver" : "mysql",
+    "user" : "root",
+    "password" : "#koldin13579",
+    "dbName" : "tableEyes"
+}
