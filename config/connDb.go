@@ -3,29 +3,33 @@ package config
 import (
 	"database/sql"
 	"encoding/json"
+	"fmt"
+	"io/ioutil"
 	"os"
 
 	_ "github.com/go-sql-driver/mysql"
 )
 
-type dbConfig struct {
-	driver   string `json : "driver"`
-	user     string `json : "user"`
-	password string `json : "password"`
-	database string `json : "dbName`
+type DBConfig struct {
+	Driver   string `json:"driver"`
+	User     string `json:"user"`
+	Password string `json:"password"`
+	Database string `json:"dbName"`
 }
 
-func configOpen() dbConfig {
-	data, err := os.Open("./admin/db.json")
-	var config dbConfig
-	defer data.Close()
-
+func configOpen() DBConfig {
+	var config DBConfig
+	data, err := os.Open("F:/files/golang/web/admin/db.json")
 	if err != nil {
 		panic(err.Error())
 	}
+	defer data.Close()
 
-	jsonParser := json.NewDecoder(data)
-	jsonParser.Decode(&config)
+	byteVal, _ := ioutil.ReadAll(data)
+	json.Unmarshal(byteVal, &config)
+
+	fmt.Println(string(config.Database))
+	fmt.Print(config)
 
 	return config
 }
@@ -33,7 +37,8 @@ func configOpen() dbConfig {
 func ConnDb() (db *sql.DB) {
 	config := configOpen()
 
-	db, err := sql.Open(config.driver, config.user+":"+config.password+"@/"+config.database)
+	fmt.Println(config.Driver, config.User+":"+config.Password+"@/"+config.Database)
+	db, err := sql.Open(config.Driver, config.User+":"+config.Password+"@/"+config.Database)
 
 	if err != nil {
 		panic(err.Error())
