@@ -1,17 +1,26 @@
 package account
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	createConn "web/config"
 )
 
+type Tocken struct {
+	Tocken string
+}
+
 func Login(res http.ResponseWriter, req *http.Request) bool {
 	db := createConn.ConnDb()
 
 	//body값 읽기
-	len := req.ContentLength
-	reqTocken := make([]byte, len)
+	var body Tocken
+	var reqTocken string
+
+	json.NewDecoder(req.Body).Decode(&body)
+
+	reqTocken = body.Tocken
 
 	query, err := db.Query("SELECT token FROM account")
 
@@ -24,7 +33,7 @@ func Login(res http.ResponseWriter, req *http.Request) bool {
 		var tocken string
 		query.Scan(&tocken)
 
-		if tocken == string(reqTocken) {
+		if tocken == reqTocken {
 			return true
 		}
 	}
