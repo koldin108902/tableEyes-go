@@ -9,7 +9,6 @@ import (
 )
 
 func main() {
-	// mux := http.NewServeMux()
 	app := mux.NewRouter()
 
 	app.HandleFunc("/store", router.GetStore).Methods("GET")
