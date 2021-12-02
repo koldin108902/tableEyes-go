@@ -20,8 +20,9 @@ func Login(res http.ResponseWriter, req *http.Request) bool {
 
 	json.NewDecoder(req.Body).Decode(&body)
 
-	reqTocken = body.Tocken
+	reqTocken = body.Tocken //user tocken
 
+	//get db
 	query, err := db.Query("SELECT token FROM account")
 
 	if err != nil {
@@ -29,11 +30,11 @@ func Login(res http.ResponseWriter, req *http.Request) bool {
 		panic(err.Error())
 	}
 
-	for query.Next() {
+	for query.Next() { //각 row값
 		var tocken string
 		query.Scan(&tocken)
 
-		if tocken == reqTocken {
+		if tocken == reqTocken { //로그인 기록이 있는 토큰일시
 			return true
 		}
 	}
