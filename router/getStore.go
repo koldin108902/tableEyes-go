@@ -10,13 +10,8 @@ import (
 func GetStore(res http.ResponseWriter, req *http.Request) {
 	db := createConn.ConnDb()
 
-	query, err := db.Prepare("SELECT * FROM store")
-
-	if err != nil {
-		panic(err.Error())
-	}
-
-	rows, err := query.Query()
+	//get db data
+	rows, err := db.Query("SELECT * FROM store")
 	dataes := []_struct.Row{}
 
 	if err != nil {
@@ -26,6 +21,7 @@ func GetStore(res http.ResponseWriter, req *http.Request) {
 	for rows.Next() {
 		row := _struct.Row{}
 
+		//각 데이터 지역변수에 담기
 		err := rows.Scan(
 			&row.Id, &row.OwnerId, &row.Name,
 			&row.Description, &row.Category, &row.WaitingState,
@@ -35,7 +31,7 @@ func GetStore(res http.ResponseWriter, req *http.Request) {
 			panic(err.Error())
 		}
 
-		dataes = append(dataes, row)
+		dataes = append(dataes, row) //전역 변수에 row값을 담음
 	}
 
 	res.WriteHeader(200)
