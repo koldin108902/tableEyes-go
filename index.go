@@ -13,6 +13,7 @@ func main() {
 
 	app.HandleFunc("/store", router.GetStore).Methods("GET")
 	app.HandleFunc("/store", router.AddStore).Methods("POST")
+	app.HandleFunc("/store", router.EditStore).Methods("PUT")
 
 	http.ListenAndServe(":3100", app)
 }
