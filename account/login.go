@@ -11,7 +11,7 @@ type Tocken struct {
 	Tocken string
 }
 
-func Login(res http.ResponseWriter, req *http.Request) bool {
+func Login(res http.ResponseWriter, req *http.Request) (string, bool) {
 	db := createConn.ConnDb()
 
 	//body값 읽기
@@ -35,9 +35,9 @@ func Login(res http.ResponseWriter, req *http.Request) bool {
 		query.Scan(&tocken)
 
 		if tocken == reqTocken { //로그인 기록이 있는 토큰일시
-			return true
+			return "error", true
 		}
 	}
 
-	return false
+	return reqTocken, false
 }

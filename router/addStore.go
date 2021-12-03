@@ -15,7 +15,10 @@ func AddStore(res http.ResponseWriter, req *http.Request) {
 	defer db.Close()
 
 	//login tocken check
-	if !account.Login(res, req) {
+	_, isLogin := account.Login(res, req)
+
+	//로그인이 안되어 있으면
+	if !isLogin {
 		res.WriteHeader(http.StatusBadRequest)
 		fmt.Fprint(res, "")
 		return
