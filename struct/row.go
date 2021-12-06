@@ -1,4 +1,4 @@
-package _struct
+package structure
 
 type Row struct {
 	Id           int
@@ -10,4 +10,10 @@ type Row struct {
 	Detail       string
 	IsOpen       bool
 	NowPersonnel int
+}
+
+type UserInfo struct {
+	Id      int
+	StoreId int
+	Tocken  string
 }
