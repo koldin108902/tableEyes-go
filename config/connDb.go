@@ -37,6 +37,9 @@ func connDb() (db *sql.DB) {
 
 	db, err := sql.Open(config.Driver, config.User+":"+config.Password+"@/"+config.Database)
 
+	db.SetMaxIdleConns(3)
+	db.SetMaxOpenConns(3)
+
 	if err != nil {
 		panic(err.Error())
 	}
