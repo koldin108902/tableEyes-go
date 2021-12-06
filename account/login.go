@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	createConn "web/config"
+	"web/config"
 )
 
 type Tocken struct {
@@ -12,7 +12,7 @@ type Tocken struct {
 }
 
 func Login(res http.ResponseWriter, req *http.Request) (string, bool) {
-	db := createConn.ConnDb()
+	db := config.Db
 
 	//body값 읽기
 	var body Tocken

@@ -3,23 +3,23 @@ package router
 import (
 	"fmt"
 	"net/http"
-	createConn "web/config"
-	_struct "web/struct"
+	"web/config"
+	structure "web/struct"
 )
 
 func GetStore(res http.ResponseWriter, req *http.Request) {
-	db := createConn.ConnDb()
+	db := config.Db
 
 	//get db data
 	rows, err := db.Query("SELECT * FROM store")
-	dataes := []_struct.Row{}
+	dataes := []structure.Row{}
 
 	if err != nil {
 		panic(err.Error())
 	}
 
 	for rows.Next() {
-		row := _struct.Row{}
+		row := structure.Row{}
 
 		//각 데이터 지역변수에 담기
 		err := rows.Scan(

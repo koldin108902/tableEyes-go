@@ -9,7 +9,7 @@ type _response struct {
 }
 
 func OwnerChecker(tocken string, storeId int) _response {
-	db := config.ConnDb()
+	db := config.Db
 	var ownerId int
 	var res _response
 	res.Boolean = false

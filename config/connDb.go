@@ -30,7 +30,9 @@ func configOpen() DBConfig {
 	return config
 }
 
-func ConnDb() (db *sql.DB) {
+var Db = connDb()
+
+func connDb() (db *sql.DB) {
 	config := configOpen()
 
 	db, err := sql.Open(config.Driver, config.User+":"+config.Password+"@/"+config.Database)

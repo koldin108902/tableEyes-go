@@ -6,12 +6,12 @@ import (
 	"net/http"
 	"web/account"
 	createConn "web/config"
-	_struct "web/struct"
+	structure "web/struct"
 )
 
 func AddStore(res http.ResponseWriter, req *http.Request) {
 	//db connnect
-	db := createConn.ConnDb()
+	db := createConn.Db
 	defer db.Close()
 
 	//login tocken check
@@ -24,7 +24,7 @@ func AddStore(res http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	var body _struct.Row
+	var body structure.Row
 	json.NewDecoder(req.Body).Decode(&body) //body parse
 
 	//insert query

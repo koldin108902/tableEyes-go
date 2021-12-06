@@ -6,15 +6,15 @@ import (
 	"net/http"
 	"web/account"
 	"web/config"
-	_struct "web/struct"
+	structure "web/struct"
 )
 
 func EditStore(res http.ResponseWriter, req *http.Request) {
-	db := config.ConnDb()
+	db := config.Db
 	defer db.Close()
 
 	//get body value
-	var body _struct.Row
+	var body structure.Row
 	json.NewDecoder(req.Body).Decode(&body)
 
 	//check login and get tocken
