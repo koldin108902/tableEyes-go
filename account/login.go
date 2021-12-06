@@ -11,12 +11,11 @@ type Tocken struct {
 	Tocken string
 }
 
-func Login(req *http.Request) (string, bool) {
+func Login(req *http.Request) (reqTocken string, isLogin bool) {
 	db := config.Db
 
 	//body값 읽기
 	var body Tocken
-	var reqTocken string
 
 	json.NewDecoder(req.Body).Decode(&body)
 
