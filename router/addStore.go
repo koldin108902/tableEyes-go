@@ -5,14 +5,13 @@ import (
 	"fmt"
 	"net/http"
 	"web/account"
-	createConn "web/config"
-	structure "web/struct"
+	"web/config"
+	"web/structure"
 )
 
 func AddStore(res http.ResponseWriter, req *http.Request) {
 	//db connnect
-	db := createConn.Db
-	defer db.Close()
+	db := config.Db
 
 	//login tocken check
 	_, isLogin := account.Login(req)

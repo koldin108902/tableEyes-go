@@ -5,7 +5,7 @@ import (
 
 	"github.com/gorilla/mux"
 
-	router "web/router"
+	"web/router"
 )
 
 func main() {

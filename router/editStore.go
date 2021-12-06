@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"web/account"
 	"web/config"
-	structure "web/struct"
+	"web/structure"
 )
 
 func EditStore(res http.ResponseWriter, req *http.Request) {
