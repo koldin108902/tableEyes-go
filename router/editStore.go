@@ -27,11 +27,11 @@ func EditStore(res http.ResponseWriter, req *http.Request) {
 	}
 
 	//매장의 오너가 맞는지 체크
-	cheker := account.OwnerChecker(tocken, body.Id)
+	checker := account.OwnerChecker(tocken, body.Id)
 
 	//checker error handler
-	if !cheker.Boolean {
-		switch cheker.Code {
+	if !checker.Boolean {
+		switch checker.Code {
 		case 1:
 			res.WriteHeader(http.StatusBadRequest)
 			fmt.Fprint(res, "error in get user's information")
