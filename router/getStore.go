@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"web/config"
-	structure "web/struct"
+	"web/structure"
 )
 
 func GetStore(res http.ResponseWriter, req *http.Request) {
