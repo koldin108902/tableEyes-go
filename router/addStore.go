@@ -19,7 +19,7 @@ func AddStore(res http.ResponseWriter, req *http.Request) {
 
 	//로그인이 안되어 있으면
 	if !isLogin {
-		res.WriteHeader(http.StatusBadRequest)
+		res.WriteHeader(http.StatusForbidden)
 		fmt.Fprint(res, "")
 		return
 	}
