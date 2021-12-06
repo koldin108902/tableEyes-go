@@ -18,7 +18,7 @@ func EditStore(res http.ResponseWriter, req *http.Request) {
 	json.NewDecoder(req.Body).Decode(&body)
 
 	//check login and get tocken
-	tocken, isLogin := account.Login(res, req)
+	tocken, isLogin := account.Login(req)
 
 	if !isLogin {
 		res.WriteHeader(http.StatusForbidden)

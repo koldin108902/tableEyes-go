@@ -15,7 +15,7 @@ func AddStore(res http.ResponseWriter, req *http.Request) {
 	defer db.Close()
 
 	//login tocken check
-	_, isLogin := account.Login(res, req)
+	_, isLogin := account.Login(req)
 
 	//로그인이 안되어 있으면
 	if !isLogin {

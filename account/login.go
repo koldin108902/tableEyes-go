@@ -11,7 +11,7 @@ type Tocken struct {
 	Tocken string
 }
 
-func Login(res http.ResponseWriter, req *http.Request) (string, bool) {
+func Login(req *http.Request) (string, bool) {
 	db := config.Db
 
 	//body값 읽기
